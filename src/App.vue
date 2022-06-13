@@ -269,5 +269,8 @@ import authModal from '@/components/authModal.vue';
 export default {
   components: { headerComponent, authModal },
   name: 'App',
+  created() {
+    this.$store.dispatch('init_login');
+  },
 };
 </script>

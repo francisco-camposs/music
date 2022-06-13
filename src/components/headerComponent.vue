@@ -8,14 +8,22 @@
         <!-- Primary Navigation -->
         <ul class="flex flex-row mt-1">
           <!-- Navigation Links -->
-          <li>
+          <li v-if="!userLoggedIn">
             <a class="px-2 text-white" href="#" @click.prevent="toggleAuthModal">
               Login / Register
             </a>
           </li>
-          <li>
-            <a class="px-2 text-white" href="#">Manage</a>
-          </li>
+          <template v-else>
+            <li>
+              <a class="px-2 text-white" href="#">Manage</a>
+            </li>
+            <li>
+              <a class="px-2 text-white" href="#"
+                @click.prevent="signout">
+                  Logout
+                </a>
+            </li>
+          </template>
         </ul>
       </div>
     </nav>
@@ -24,12 +32,16 @@
 
 <script>
 
-import { mapMutations } from 'vuex';
+import { mapMutations, mapState, mapActions } from 'vuex';
 
 export default {
   name: 'headerComponent',
   methods: {
     ...mapMutations(['toggleAuthModal']),
+    ...mapActions(['signout']),
+  },
+  computed: {
+    ...mapState(['userLoggedIn']),
   },
 };
 
